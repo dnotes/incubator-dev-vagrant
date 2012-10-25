@@ -1,0 +1,32 @@
+# Postfix might not need all of these, but it's best to provide them to keep it quiet
+postfix postfix/root_address    string  aegir@aegir.loc
+postfix postfix/mailname        string  aegir.loc
+postfix postfix/home_mailbox    string  /var/mail/aegir
+postfix postfix/rfc1035_violation       boolean false
+postfix postfix/mydomain_warning        boolean
+postfix postfix/mynetworks      string  127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+postfix postfix/mailname        string  aegir.loc
+postfix postfix/tlsmgr_upgrade_warning  boolean
+postfix postfix/recipient_delim string  +
+postfix postfix/main_mailer_type        select  Local only
+postfix postfix/destinations    string  aegir.loc, localhost.loc, localhost
+postfix postfix/retry_upgrade_warning   boolean
+postfix postfix/kernel_version_warning  boolean
+postfix postfix/sqlite_warning  boolean
+postfix postfix/mailbox_limit   string  0
+postfix postfix/relayhost       string
+postfix postfix/procmail        boolean false
+postfix postfix/protocols       select  all
+postfix postfix/chattr  boolean false
+
+
+# Aegir doesn't store the root password, which is good, but makes life hard
+#aegir-hostmaster        aegir/db_password       string  aegir
+#aegir-hostmaster        aegir/db_user   string  root
+#aegir-hostmaster        aegir/email     string  aegir@aegir.loc
+#aegir-hostmaster        aegir/db_host   string  localhost
+#aegir-hostmaster        aegir/makefile  string
+#aegir-hostmaster        aegir/site      string  aegir.loc
+
+# Set root password for mysql
+

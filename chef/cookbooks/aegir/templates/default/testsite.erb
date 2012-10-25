@@ -1,0 +1,46 @@
+#!/bin/sh
+
+if [ $# -lt 1 ]
+then
+  echo "There must be at least one argument for the folder under ./sitedata."
+  exit 1
+fi
+
+if [ ! -f sitedata/$1/database.sql ]
+then
+  echo "The first argument must be a folder under ./sitedata, not $1!"
+  exit 1
+fi
+
+if [ $# -gt 1 ]
+then
+  siteurl=$2
+else
+  siteurl='@test.loc'
+fi
+
+sitepath=`drush sa $siteurl --component=site_path`
+if [ -z $sitepath ]
+then
+  echo "The sitepath for $siteurl was not found."
+  exit 1
+fi
+
+eval `drush sa $siteurl --with-db | grep 'db_' | sed "s/[', ]//g" | awk -F '=>' '{ print $1"="$2 }'`
+
+if [ -z $db_name ]
+then
+  echo "The database name was not found for $siteurl"
+  exit 1
+fi
+
+rm -R "$sitepath/files"
+cp -R sitedata/$1/files "$sitepath/files"
+chmod -R 777 "$sitepath/files"
+mysql -uroot -paegir -e "drop database $db_name"
+mysql -uroot -paegir -e "create database $db_name"
+mysql -uroot -paegir -e "grant all privileges on $db_name.* to '$db_user'@'$db_host' identified by '$db_passwd' with grant option"
+mysql -uroot -paegir $db_name < sitedata/$1/database.sql
+drush $siteurl cc all
+
+echo "Completed operation"
