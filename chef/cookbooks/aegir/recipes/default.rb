@@ -85,7 +85,7 @@ template "/etc/php5/php-local.ini" do
     group "root"
 end
 
-template "/home/vagrant/testsite" do
+template "/var/aegir/platforms/testsite" do
     source "testsite.erb"
     mode 0744
     owner "vagrant"

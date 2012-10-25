@@ -1,0 +1,17 @@
+
+- prevent postfix sending mail
+  e.g. http://www.opensourcery.com/blog/chad-granum/local-only-postfix-testing
+
+- move testsite and sitedata to /var/aegir/platforms
+
+- drush 5.x
+  aliased perhaps as drush5?
+
+- drupalorg_drush
+  http://drupal.org/project/drupalorg_drush
+
+- add test sites to /etc/hosts
+  test.loc, test1.loc ... test9.loc
+  site.loc, site1.loc ... site9.loc
+  aegir.loc
+
